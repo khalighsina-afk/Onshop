@@ -40,9 +40,12 @@
             mysqli_stmt_execute($stmt);
             echo "the product {$product_name} added successfully.<br>";
             echo "product description: {$product_descr} <br>";
-            echo "with the price of \${$product_price}!";
+            echo "with the price of \${$product_price}!<br>";
+
         }
     }
+
+
 
     //Products form Database -- >
     $sql = "SELECT * FROM products";
@@ -59,11 +62,10 @@
     if(mysqli_num_rows($result) <=0 ){
         echo "There is no product submitted";
     }else{
-
-
         while($row= mysqli_fetch_assoc($result)){ ?>
             <div>
                 <p>
+                    ============================================================ <br>
                     Product ID = <?php echo $row["product_id"]; ?>               <br>
                     Product name = <?php echo $row["product_name"]; ?>           <br>
                     Product description = <?php echo $row["product_descr"]; ?>   <br>
@@ -74,9 +76,11 @@
                     value= "<?php echo $row["product_id"] ; ?>"  > <br>
                     <button type="submit" name="delete_btn">Delete</button>
                 </form>
-                <form action="admin.php" method="post">
-                <button type="submit" name="update_btn">Update</button>
+                <form action="admin.php" method="get">
+                <a href="update.php?product_id=<?php echo $row["product_id"]; ?> " >
+                <button type="button">Update</button> </a>
                 </form>
+
             </div>
 <?php   }
     }
