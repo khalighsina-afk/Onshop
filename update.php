@@ -30,7 +30,7 @@
         }else{
             echo "Please fill all the fields.";
         }
-
+    mysqli_close($conn);
     }
 ?>
 <html>
