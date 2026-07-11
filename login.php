@@ -41,7 +41,7 @@
                     if($row["user_uid"]== "admin"){
                         header("Location: admin.php");
                     }else{
-                        header("Location: index.php");
+                        header("Location: products.php");
                     }
                     exit;
                 }else{
