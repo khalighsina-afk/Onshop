@@ -34,7 +34,6 @@
         header("Location: cart.php");
         exit;
     }
-
     while($row = mysqli_fetch_assoc($result)){
     $subtotal = $row["product_price"] * $row["quantity"];
     $total +=   $subtotal;
@@ -54,10 +53,16 @@
     </form>
 
 
+<?php }
+    echo "Total = \${$total}<br> ";
+?>
+    <html>
+        <a href="checkout.php">
+            <button>proceed to checkout</button>
+        </a>
+    </html>
 <?php
-    }
 
-    echo "Total = \${$total} ";
 
     mysqli_close($conn);
 ?>
