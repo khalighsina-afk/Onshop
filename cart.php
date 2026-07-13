@@ -1,7 +1,14 @@
+<html> <a href="user_panel.php">user panel...</a> </html>
 <?php
     include("database.php");
     session_start();
-    $user_id = $_SESSION["user_id"];
+
+    if(!$_SESSION["user_id"]){
+        header ("Location: login.php");
+        exit;
+    }else{
+        $_SESSION["user_id"];
+    }
 
     $sql= "SELECT products.*, cart.quantity
            FROM cart JOIN products ON cart.product_id = products.product_id

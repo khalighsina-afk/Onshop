@@ -1,0 +1,19 @@
+{
+    "name": "s.khaligh/onshop",
+    "description": "my first plain PHP onlineshop",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SKhaligh\\Onshop\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "khalighsina-afk",
+            "email": "khalighsina@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

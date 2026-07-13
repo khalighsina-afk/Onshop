@@ -100,6 +100,7 @@
             </p>
 <?php
         endwhile;
+
 ?>
         <h2>Total = $<?php echo number_format($cart_total, 2);?></h2>
         <form action="checkout.php" method="post">

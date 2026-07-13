@@ -4,6 +4,7 @@
     $user_id = $_SESSION["user_id"];
     ?>
     <html><a href="cart.php">view cart...</a> </html>
+    <html><a href="user_panel.php">user panel...</a> </html>
 <?php
     if(isset($_POST["add_cart_btn"])){
         $quantity = $_POST["quantity_counter"];
