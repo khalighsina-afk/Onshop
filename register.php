@@ -19,6 +19,8 @@
 
 </body>
 </html>
+
+
 <?php
     include("database.php");
     if(isset($_POST["register"])){
@@ -28,11 +30,15 @@
         $email = $_POST["email"];
         if(empty($username) || empty($password) || empty($email)){
             echo "Please complete the form.";
+            exit;
         }elseif($password !== $password_repeat){
             echo "password do not match.";
+            exit;
         }elseif(strlen($password) < 8 ){
             echo "Password must be longer than 8 characters";
-        }else{
+            exit;
+        }
+        try{
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO users(user_name, user_password, email) VALUES (?, ?, ?);";
             $stmt= mysqli_prepare($conn, $sql);
@@ -40,7 +46,24 @@
             mysqli_stmt_execute($stmt);
             header ("Location: login.php");
             exit;
-        }
+            }catch(mysqli_sql_exception $e) {
+                $message= $e->getMessage();
+                    if(strpos($message, 'Duplicate entry') !== false) {
+                        if(strpos($message, 'user_name') !== false){
+                            echo "this username is already taken.";
+                        }elseif(strpos($message, 'email') !==false){
+                            echo "this email is already registered, please use another.";
+                        }else{
+                            echo "this information is already used.";
+                        }
+                    }else{
+                        echo "Registration failed.";
+                        error_log($message);
+                    }
+
+
+            }
+
     }
     mysqli_close($conn);
 ?>
