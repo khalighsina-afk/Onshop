@@ -10,24 +10,23 @@ class User {
     public string $uid;
 
 
-    public static function login($name, $password) :bool{
+    public static function login($name, $password) {
         $pdo = Database::getConnection();
-        $sql = "SELECT * FROM users WHERE username = :username";
+        $sql = "SELECT * FROM users WHERE user_name = :username";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':username' => $name
-        ]);
+        $stmt->execute([':username' => $name]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($user && password_verify($password, $user['password'])){
+
+        if($user && password_verify($password, $user['user_password'])){
             return $user;
         }
         return false;
     }
 
-    public static function register($name, $email, $password) :int{
+    public static function register($name, $email, $password){
         $pdo = Database::getConnection();
         $hashed_password= password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users(user_name, $password, $email)
+        $sql = "INSERT INTO users(user_name, user_password, email)
                 VALUES (:user_name, :password, :email)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
