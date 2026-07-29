@@ -1,20 +1,21 @@
 <?php
 include 'includes/myautoloader.includes.php';
-
-if(isset($_POST["submit"])){
-    $name = $_POST["name"];
-    $password = $_POST["password"];
-    $email = $_POST["email"];
-    $user = User::register($name, $email, $password);
-    echo "register successful";
-}else {
-    echo "register failed";
+session_start();
+if($_SESSION){
+    echo"login success!<br>";
+    echo"Welcome ".$_SESSION['user_name']."!";
+}else{
+    header ("location: views/login-form.view.php");
+    exit;
 }
-?>
-    <form action="test.php" method="post">
-        <input type="text" name="name"><br>
-        <input type="text" name="email"><br>
-        <input type="password" name="password"><br>
-        <input type="submit" name="submit">
-    </form>
+$user_name=$_SESSION['user_name'];
+$user_id = $_SESSION["user_id"];
+
+$items=Cart::showAllItems($user_id);
+foreach ($items as $item){
+    echo $item->quantity;
+
+
+
+}
 

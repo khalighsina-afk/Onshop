@@ -6,7 +6,7 @@ class Cart{
     private static $connection = null;
     public int $user_id;
     public int $product_id;
-    public int $product_name;
+    public string $product_name;
     public int $product_price;
     public int $quantity;
 
@@ -22,7 +22,6 @@ class Cart{
         $rows=$stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($rows as $row){
             $item = new Cart();
-            $item->user_id=$row['user_id'];
             $item->product_id = $row['product_id'];
             $item->product_name = $row['product_name'];
             $item->product_price = $row['product_price'];
