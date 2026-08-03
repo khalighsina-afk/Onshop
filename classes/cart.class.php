@@ -1,6 +1,4 @@
 <?php
-include 'database.class.php';
-
 class Cart{
     private static $allItems = 0;
     private static $connection = null;
@@ -29,6 +27,46 @@ class Cart{
             $items []= $item;
         }
         return $items;
+    }
+
+
+    public static function insert($user_id, $product_id, $quantity){
+        $pdo = Database::getConnection();
+
+        //checking if the product is still in the cart
+        $checkSql = "SELECT product_id 
+                     FROM cart
+                     WHERE user_id = :user_id AND product_id= :product_id ";
+        $checkStmt = $pdo->prepare($checkSql);
+        $checkStmt->execute([
+            ':user_id' => $user_id,
+            'product_id' => $product_id]);
+        $existing= $checkStmt->fetch();
+
+        if($existing){
+            //if it is, update quantity
+            $updateSql = "UPDATE cart 
+                          SET quantity = :quantity
+                          WHERE user_id = :user_id AND product_id= :product_id";
+            $updateStmt = $pdo->prepare($updateSql);
+            $updateStmt->execute([
+                ':quantity' => $quantity,
+                ':user_id' => $user_id,
+                ':product_id' => $product_id
+                ]);
+            return $updateStmt->rowCount() > 0 ;
+        }else{
+            //if nor insert
+            $sql = "INSERT INTO cart (user_id, product_id, quantity) 
+                    VALUES (:user_id, :product_id, :quantity)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':user_id' => $user_id,
+                ':product_id' => $product_id,
+                ':quantity' => $quantity
+            ]);
+            return (int)$pdo->lastInsertId();
+        }
     }
 
     public static function delete($user_id, $product_id){

@@ -1,5 +1,4 @@
 <?php
-include 'database.class.php';
 class Product{
     private static $totalproducts = 0;
     private static $connection = null;

@@ -1,5 +1,4 @@
 <?php
-include 'database.class.php';
 class User {
     private static $totalusers = 0;
     private static $connection = 0;
@@ -36,7 +35,7 @@ class User {
                         SET failed_attempts=0, locked_until= NULL
                         WHERE user_id = :id";
             $resetStmt= $pdo->prepare($resetSql);
-            $resetStmt->execute([':id' => $user['id']]);
+            $resetStmt->execute([':id' => $user['user_id']]);
             return $user;
         }else {
             $failedAttempts = ($user['failed_attempts'] ?? 0) + 1 ;
@@ -51,7 +50,7 @@ class User {
                 $lockStmt->execute([
                    ':attempts'=> $failedAttempts,
                    ':locked'=> $lockedUntil,
-                   ':id' => $user['id']
+                   ':id' => $user['user_id']
                 ]);
                 return 'locked';
             }else{
@@ -61,13 +60,12 @@ class User {
                 $updateStmt= $pdo->prepare($updateSql);
                 $updateStmt->execute([
                     ':attempts'=> $failedAttempts,
-                    ':id'=>$user['id']
+                    ':id'=>$user['user_id']
                 ]);
                 return false;
             }
 
         }
-
     }
 
     public static function register($name, $email, $password){
@@ -90,9 +88,6 @@ class User {
                 throw new Exception("email already exists");
             }
         }
-
-
-
         $hashed_password= password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users(user_name, user_password, email)
                 VALUES (:user_name, :password, :email)";
@@ -102,7 +97,15 @@ class User {
             ':password' => $hashed_password,
             ':email'=> $email
         ]);
-        return (int)$pdo->lastInsertId();
+        $result=$pdo->lastInsertId();
+
+        $loginSql = "SELECT * FROM users
+                     WHERE user_id = :id";
+        $loginStmt= $pdo->prepare($loginSql);
+        $loginStmt->execute([":id" => $result]);
+
+        $user = $loginStmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
     }
 
     //find users by id

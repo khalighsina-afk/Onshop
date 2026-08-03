@@ -1,5 +1,4 @@
 <?php
-
 class Database {
     private static $pdo = null;
     private static $host = "127.0.0.1";

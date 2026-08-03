@@ -32,7 +32,7 @@
             if($result["user_id"]== "admin"){
                 header ("Location: admin.php");
             }else {
-                header("Location: test.php");
+                header("Location: products.php");
                 exit;
             }
         }
