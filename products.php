@@ -36,7 +36,6 @@
         }
             $product_id = $_POST["product_id"];
             $quantity = $_POST["quantity"];
-
             $result = Cart::insert($user_id, $product_id, $quantity);
 
             if($result){
@@ -46,3 +45,5 @@
                 echo "failed to insert to the cart";
             }
     }
+
+    
