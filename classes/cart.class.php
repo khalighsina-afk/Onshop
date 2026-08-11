@@ -5,7 +5,7 @@ class Cart{
     public int $user_id;
     public int $product_id;
     public string $product_name;
-    public int $product_price;
+    public float $product_price;
     public int $quantity;
 
     public static function showAllItems($user_id){
@@ -80,15 +80,38 @@ class Cart{
 
     public static function quantity($quantity, $product_id, $user_id){
         $pdo = Database::getConnection();
-        $sql = "UPDATE cart 
-                SET quantity = :quantity
-                WHERE product_id = :product_id AND user_id=:user_id";
+
+        // First, check whether the row exists
+        $sql = "SELECT * FROM cart
+            WHERE product_id = :product_id
+            AND user_id = :user_id";
+
         $stmt = $pdo->prepare($sql);
+
         $stmt->execute([
-           ':quantity' => $quantity,
-           ':product_id' => $product_id,
-           ':user_id' => $user_id
+            ':product_id' => $product_id,
+            ':user_id' => $user_id
         ]);
-        return $stmt->rowCount() > 0;
+        $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+        // Now perform the update
+        $sql = "UPDATE cart
+            SET quantity = :quantity
+            WHERE product_id = :product_id
+            AND user_id = :user_id";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            ':quantity' => $quantity,
+            ':product_id' => $product_id,
+            ':user_id' => $user_id
+        ]);
+
+        return $stmt->rowCount() > 0 ;
     }
+
+
+
 }
