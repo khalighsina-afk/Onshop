@@ -68,7 +68,6 @@ class Cart{
             return (int)$pdo->lastInsertId();
         }
     }
-
     public static function delete($user_id, $product_id){
         $pdo = Database::getConnection();
         $sql = "DELETE FROM cart 
@@ -111,7 +110,24 @@ class Cart{
 
         return $stmt->rowCount() > 0 ;
     }
+    public static function total($user_id){
+        $pdo = Database::getConnection();
+        $sql = "SELECT SUM(products.product_price * cart.quantity) AS total
+                 FROM cart
+                 JOIN products ON cart.product_id = products.product_id 
+                 WHERE user_id= :user_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':user_id'=> $user_id]);
+        $result = $stmt->fetch();
+        return $result['total'] ?? 0;
+        }
 
-
-
+        public static function clear($user_id){
+        $pdo = Database::getConnection();
+        $sql = "DELETE FROM cart
+                WHERE user_id= :user_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':user_id'=>$user_id]);
+        return $stmt->rowCount() > 0;
+        }
 }

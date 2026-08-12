@@ -12,6 +12,13 @@
         exit;
     }
 
+    if (isset($_POST["delete"])){
+        $product_id = $_POST["product_id"];
+        Cart::delete($user_id, $product_id);
+        header ("Location: cart.php");
+        exit;
+    }
+
     $items = Cart::showAllItems($user_id);
     include 'views/cart.view.php';
 

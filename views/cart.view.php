@@ -12,9 +12,10 @@
                 <p>price: <?php echo "$". $item->product_price;?></p>
                 <p>subtotal: <?php echo "$". $subtotal= $item->product_price * $item->quantity; ?></p>
                 <?php $total += $subtotal ;?>
-                <input type="hidden" name="product_id" value="<?php echo $item->product_id;?>">
-                <input type="number" name="quantity" value="<?php echo $item->quantity; ?>">
+                <input type="hidden" name="product_id" value="<?php echo $item->product_id;?>" min="1">
+                <input type="number" name="quantity" value="<?php echo $item->quantity; ?>" min="1">
                 <button type="submit" name="update">Update</button>
+                <button type="submit" name="delete">Delete</button>
             </form>
                 <p>=======================</p>
         <?php endforeach; ?>
