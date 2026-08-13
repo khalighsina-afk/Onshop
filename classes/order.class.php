@@ -16,7 +16,7 @@ class Order{
                  WHERE user_id = :user_id";
         $stmt= $pdo->prepare($sql);
         $stmt->execute([':user_id' => $user_id]);
-        return $stmt;
+        return $stmt->fetchAll();
     }
     public static function insert($user_id, $total){
         $pdo = Database::getConnection();
@@ -35,7 +35,7 @@ class Order{
                 WHERE order_id= :order_id";
         $stmt= $pdo->prepare($sql);
         $stmt->execute([':order_id' => $order_id]);
-        return $stmt;
+        return $stmt->fetch();
     }
 
     public static function itemsInsert($order_id, $product_id, $quantity, $price, $subtotal):bool{
@@ -53,4 +53,15 @@ class Order{
         ]);
         return (int)$pdo->lastInsertId();
     }
+
+    public static function getItems($order_id){
+        $pdo = Database::getConnection();
+        $sql = "SELECT *
+                FROM order_items
+                WHERE order_id= :order_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':order_id' => $order_id]);
+        return $stmt->fetchAll();
+    }
+
 }

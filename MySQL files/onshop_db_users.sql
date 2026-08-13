@@ -38,7 +38,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `email_2` (`email`),
   UNIQUE KEY `user_name_2` (`user_name`),
   UNIQUE KEY `user_name_3` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

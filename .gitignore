@@ -1,1 +1,19 @@
 /vendor/
+# Database exports
+*.sql
+*.sql.gz
+*.rar
+*.zip
+
+# IDE files
+.idea/
+.vscode/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Your specific database files
+database/*.sql
+onshop_db.sql
+*.sql

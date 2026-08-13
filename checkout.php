@@ -31,7 +31,7 @@
                         $subtotal);
                 Cart::clear($user_id);
                 echo "Done";
-                header("Location: checkout.php");
+                header("Location: order_confirmation.php");
             }
 
 

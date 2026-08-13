@@ -115,7 +115,8 @@ class User {
                 WHERE user_id= :id";
         $stmt=$pdo->prepare($sql);
         $stmt->execute([':id' => $id]);
-        return $stmt->rowCount() > 0;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+        
     }
 
     //update users
