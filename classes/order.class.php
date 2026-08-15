@@ -20,6 +20,10 @@ class Order{
     }
     public static function insert($user_id, $total){
         $pdo = Database::getConnection();
+
+        if($total <=0 ){
+            throw new Exception("Invalid total amount");
+        }
         $sql = "INSERT INTO orders(user_id, total_amount)
                 VALUES (:user_id, :total_amount)";
         $stmt = $pdo->prepare($sql);
@@ -40,6 +44,11 @@ class Order{
 
     public static function itemsInsert($order_id, $product_id, $quantity, $price, $subtotal):bool{
         $pdo = Database::getConnection();
+
+        if ($quantity <= 0 || $price <= 0 || $subtotal <= 0) {
+            return false;
+        }
+
         $sql = "INSERT INTO order_items(order_id, product_id, items_quantity, 
                                         price, subtotal_price)
                 VALUES(:order_id, :product_id, :quantity, :price, :subtotal)";
@@ -51,7 +60,7 @@ class Order{
             ':price'=>$price,
             ':subtotal'=>$subtotal
         ]);
-        return (int)$pdo->lastInsertId();
+        return $pdo->lastInsertId();
     }
 
     public static function getItems($order_id){

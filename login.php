@@ -27,9 +27,9 @@
             exit;
         }else{
             $_SESSION["user_id"] = $result["user_id"];
-            $_SESSION["username"] = $result["username"];
+            $_SESSION["username"] = $result["user_name"];
             $_SESSION["role"] = $result["user_uid"];
-            if($result["user_id"]== "admin"){
+            if($result["user_uid"]== "admin"){
                 header ("Location: admin.php");
             }else {
                 header("Location: products.php");

@@ -15,11 +15,12 @@ class Cart{
                 JOIN products ON cart.product_id = products.product_id
                 WHERE cart.user_id = :user_id";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['user_id' => $user_id]);
+        $stmt->execute([':user_id' => $user_id]);
         $items = [];
         $rows=$stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($rows as $row){
             $item = new Cart();
+            $item->user_id = $row['user_id'];
             $item->product_id = $row['product_id'];
             $item->product_name = $row['product_name'];
             $item->product_price = $row['product_price'];
@@ -33,6 +34,11 @@ class Cart{
     public static function insert($user_id, $product_id, $quantity){
         $pdo = Database::getConnection();
 
+        $quantity = filter_var($quantity, FILTER_VALIDATE_INT);
+        if($quantity === false || $quantity < 1){
+            return false;
+        }
+
         //checking if the product is still in the cart
         $checkSql = "SELECT product_id 
                      FROM cart
@@ -40,7 +46,7 @@ class Cart{
         $checkStmt = $pdo->prepare($checkSql);
         $checkStmt->execute([
             ':user_id' => $user_id,
-            'product_id' => $product_id]);
+            ':product_id' => $product_id]);
         $existing= $checkStmt->fetch();
 
         if($existing){
@@ -80,6 +86,10 @@ class Cart{
     public static function quantity($quantity, $product_id, $user_id){
         $pdo = Database::getConnection();
 
+        $quantity = filter_var($quantity, FILTER_VALIDATE_INT);
+        if($quantity === false || $quantity < 1){
+            return false;
+        }
         // First, check whether the row exists
         $sql = "SELECT * FROM cart
             WHERE product_id = :product_id

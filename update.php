@@ -1,18 +1,26 @@
 <?php
     include 'includes/myautoloader.includes.php';
     session_start();
-
+    if (!isset($_SESSION['user_uid']) || $_SESSION['user_uid'] != 'admin') {
+        header("Location: login.php");
+        exit;
+    }
 
 
     if(isset($_POST['submit'])){
-        $id = $_POST["id"];
-        $name = $_POST["name"];
-        $price = $_POST["price"];
-        $descr = $_POST["descr"];
+        $id = filter_var($_POST["id"], FILTER_VALIDATE_INT);
+        $name = filter_var(trim($_POST["name"]), FILTER_SANITIZE_SPECIAL_CHARS);
+        $price = filter_var($_POST["price"], FILTER_VALIDATE_FLOAT);
+        $descr = filter_var(trim($_POST["descr"]), FILTER_SANITIZE_SPECIAL_CHARS);
+        if ($id === false || $id <= 0 || empty($name) || $price === false || $price <= 0) {
+            echo "Invalid input.";
+            exit;
+        }
+
         $update = Product::update($id, $name, $descr, $price);
         if($update){
-            echo "product updated successfully";
             header ("Location: admin.php");
+            exit;
         }else{
             echo "something went wrong";
         }
@@ -22,7 +30,11 @@
         header("location: admin.php");
         exit;
     }
-    $id = $_GET["get_id"];
+    $id = filter_var($_GET["get_id"], FILTER_VALIDATE_INT);
+    if ($id === false || $id <= 0) {
+        header("Location: admin.php");
+        exit;
+    }
     $find = Product::find($id);
     if(!$find){
         header("location: admin.php");

@@ -4,13 +4,16 @@
     if(!isset($_SESSION["user_id"])){
         header ("Location: login.php");
         exit;
-    }else{
-        $user_id=$_SESSION["user_id"];
-        $user= User::find($user_id);
-
-        $orders = Order::getAll($user_id);
-
     }
+    $user_id=$_SESSION["user_id"];
+    $user= User::find($user_id);
+    if (!$user) {
+        session_destroy();
+        header("Location: login.php");
+        exit;
+    }
+    $orders = Order::getAll($user_id);
+
     if(isset($_POST["logout_btn"])){
         session_destroy();
         header("Location: login.php");

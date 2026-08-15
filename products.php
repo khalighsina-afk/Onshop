@@ -6,7 +6,6 @@
     $cartMap = [];
     if($user_id){
         //show all products in a list
-        $products= Product::getAll();
         $cartItems = Cart::showAllItems($user_id);
         foreach ($cartItems as $Item) {
             $cartMap[$Item->product_id] = $Item->quantity;
@@ -14,6 +13,7 @@
     }else{
         include 'views/login-button.view.php';
     }
+    $products= Product::getAll();
 
     
     if(isset($_POST["addCart"])){
@@ -21,21 +21,24 @@
             header ("Location: login.php");
             exit;
         }
-            $product_id = $_POST["product_id"];
-            $quantity = $_POST["quantity"][$product_id];
-            $result = Cart::insert($user_id, $product_id, $quantity);
+        $product_id = filter_var($_POST["product_id"], FILTER_VALIDATE_INT);
+        $quantity = filter_var($_POST["quantity"][$product_id], FILTER_VALIDATE_INT);
+        if ($product_id === false || $quantity === false || $quantity < 1) {
+            echo "Invalid input.";
+            exit;
+        }
+        $result = Cart::insert($user_id, $product_id, $quantity);
 
-            if($result){
-                header("Location: products.php");
-                exit;
-            }else{
-                echo "failed to insert to the cart";
-            }
+        if($result){
+            header("Location: products.php");
+            exit;
+        }else{
+            echo "failed to insert to the cart";
+        }
     }
 
     foreach ($products as $product) {
-        $quantity = $cartMap[$product->id] ?? 1;  
-        
-        include 'views/product.view.php'; 
+        $quantity = $cartMap[$product->id] ?? 1;
+        include 'views/product.view.php';
     }
     

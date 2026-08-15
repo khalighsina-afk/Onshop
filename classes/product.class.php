@@ -24,6 +24,14 @@ class Product{
     }
 
     public static function insert($name, $descr, $price): int{
+        $name = filter_var(trim($name), FILTER_SANITIZE_SPECIAL_CHARS);
+        $descr= filter_var(trim($descr), FILTER_SANITIZE_SPECIAL_CHARS);
+        $price= filter_var($price, FILTER_VALIDATE_FLOAT);
+
+        if(empty($name) || empty($descr) || empty($price)){
+            throw new Exception("Invalid product data");
+        }
+
         $pdo = Database::getConnection();
         $sql = "INSERT INTO products (product_name, product_descr, product_price)
                 VALUES (:name, :descr, :price)";
@@ -57,7 +65,7 @@ class Product{
         }catch(Exception $e){
             $pdo->rollBack();
             echo $e->getMessage();
-            return false;
+            return $stmt->rowCount() >0 && $cartStmt->rowCount() >=0;
         }
     }
     public static function update($id, $name, $descr, $price){
@@ -67,10 +75,10 @@ class Product{
                WHERE product_id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
-            'name'=> $name,
-            'descr'=>$descr,
-            'price'=>$price,
-            'id'=>$id
+            ':name'=> $name,
+            ':descr'=>$descr,
+            ':price'=>$price,
+            ':id'=>$id
         ]);
         return $stmt->rowCount() > 0;
     }

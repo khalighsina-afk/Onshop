@@ -71,6 +71,15 @@ class User {
     public static function register($name, $email, $password){
         $pdo = Database::getConnection();
 
+        //validate email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            throw new Exception("Invalid email format.");
+        }
+
+        //validate password length
+        if(Strlen($password) < 8 ){
+            throw new Exception("Password characters must be more than 8");
+        }
         //checking existing username and email
         $checkSql = "SELECT user_name,email FROM users
                      WHERE user_name=:name OR email=:email";
@@ -142,7 +151,7 @@ class User {
                 WHERE user_id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':id'=>$id]);
-        return true;
+        return $stmt->rowCount() > 0;
     }
 
     //demote from admin
@@ -153,6 +162,6 @@ class User {
                 WHERE user_id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':id'=>$id]);
-        return true;
+        return $stmt->rowCount() > 0;
     }
 }

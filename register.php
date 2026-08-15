@@ -1,36 +1,47 @@
 <?php
     include 'includes/myautoloader.includes.php';
     session_start();
+    if (isset($_SESSION['user_id'])) {
+        header("Location: products.php");
+        exit;
+    }
     $error ='';
+
     if(isset($_POST["register"])) {
-        $username = $_POST["username"];
+        $username = filter_var(trim($_POST["username"]), FILTER_SANITIZE_SPECIAL_CHARS);
         $password = $_POST["password"];
         $password_repeat = $_POST["password_repeat"];
-        $email = $_POST["email"];
+        $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+        //validate email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error = "Invalid email format.";
+            include 'views/register-form.view.php';
+            exit;
+        }
+        //Check empty
         if (empty($username) || empty($password) || empty($email)) {
             echo "Please complete the form.";
             include 'views/register-form.view.php';
             exit;
-        } elseif ($password !== $password_repeat) {
+
+        }
+        //Check password match
+        if ($password !== $password_repeat) {
             echo "password do not match.";
             include 'views/register-form.view.php';
             exit;
-        } elseif (strlen($password) < 8) {
+        }
+        //Check password length
+        if (strlen($password) < 8) {
             echo "Password must be longer than 8 characters";
             include 'views/register-form.view.php';
             exit;
         }
-        if($password !== $password_repeat) {
-            echo "password do not match.";
-            include 'views/register-form.view.php';
-        }else{
-            $reg= User::register($username, $email, $password);
-            $user= User::find($reg);
-            $_SESSION["username"] = $username;
-            $_SESSION["user_id"] = $reg;
-            header ("Location: test.php");
-            exit;
-        }
+        $reg= User::register($username, $email, $password);
+        $_SESSION["username"] = $username;
+        $_SESSION["user_id"] = $reg;
+        header ("Location: products.php");
+        exit;
     }
     include 'views/register-form.view.php';
 ?>

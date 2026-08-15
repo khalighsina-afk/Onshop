@@ -5,8 +5,13 @@
 </header>
 <body>
     <h1>User's panel</h1>
-    <p>Welcome <?php echo $user["user_name"] ?>!</p>
-    <form action="user_panel.php" method="post"><button type="submit" name="logout_btn">logout</button></form>
+    <?php if ($user): ?>
+        <h1>Welcome, <?php echo htmlspecialchars($user['user_name']); ?></h1>
+        <form action="user_panel.php" method="post"><button type="submit" name="logout_btn">logout</button></form>
+    <?php endif; ?>
+    <?php if (empty($orders)): ?>
+        <p>You haven't placed any orders yet.</p>
+    <?php else: ?>
     <h2>Orders history</h2>
 <?php
     foreach($orders as $order):
@@ -20,6 +25,7 @@
     </p>
 <?php
     endforeach;
+    endif;
 ?>
 </body>
 </html>
