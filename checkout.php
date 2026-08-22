@@ -14,7 +14,7 @@
 
     if (empty($cartItems)) {
         echo "Your cart is empty.";
-        echo "<a href='products.php'>Browse Products</a>";
+        echo "<a href='products.php' class='btn'>Browse Products</a>";
         exit;
     }
     $total= Cart::total($user_id);

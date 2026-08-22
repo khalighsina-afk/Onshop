@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
-<header>
-    <title>user_panel</title>
-</header>
+<?php include 'views/partials/head.view.php'; ?>
+<?php include 'views/partials/header.view.php'; ?>
 <body>
     <h1>User's panel</h1>
     <?php if ($user): ?>
@@ -17,7 +14,7 @@
     foreach($orders as $order):
 ?>
     <p>
-        ---------------------------------------------------------------------------------------------<br>
+       <div class="divider"></div>
         <a href="order_confirmation.php?order_id=<?php echo $order["order_id"]?>">
         submit date: <?php echo $order["order_date"];?> total amount: $<?php echo $order["total_amount"];?>
          order status: <?php echo $order["order_status"];?></a>

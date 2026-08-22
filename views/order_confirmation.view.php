@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
-<header>
-    <title>order_confirmation</title>
-</header>
+<?php include 'views/partials/head.view.php'; ?>
+<?php include 'views/partials/header.view.php'; ?>
 <body>
     <h1>Payment successful!</h1>
     <h2>order summery:</h2>
@@ -20,15 +17,14 @@
         
 ?>
     <p>
-    $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$<br>
-
-    item name= <?php echo $product["product_name"]; ?> <br>
-    item price= <?php echo $product["product_price"]; ?><br>
-    Subtotal price= <?php echo $item["subtotal_price"]; ?><br>
+    <div class="divider"></div>
+    <p>item name= <?php echo $product["product_name"]; ?></p> <br>
+    <p>item price= <?php echo $product["product_price"]; ?></p><br>
+    <p>Subtotal price= <?php echo $item["subtotal_price"]; ?></p><br>
     </p>
 <?php
     endforeach;
 ?>
     <p>Total= $<?php echo $order["total_amount"]?></p>
-    <a href="products.php">Back to shopping...</a>
+    <a href="products.php" class="nav-link">Back to shopping...</a>
 </html>

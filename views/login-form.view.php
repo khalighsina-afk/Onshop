@@ -1,8 +1,9 @@
-<html>
+<?php include 'views/partials/head.view.php'; ?>
+<?php include 'views/partials/header.view.php'; ?>
 <body>
-    <?php if($error):?>
-        <p style="color: red;"><?php echo $error; ?> </p>
-    <?php endif; ?>
+<?php if(!empty($error)):?>
+    <p class="error_message"><?php echo htmlspecialchars($error);?></p>
+<?php endif;?>
     <form action="login.php" method="post">
         <div id=login>
             <label>Username:</label>            <br>
@@ -10,11 +11,10 @@
             <label>Password:</label>            <br>
             <input  type="password" name="password"> <br>
             <button type= "submit" name="login">Login</button><br>
-            <a>Don't have an account? Register here...</a>
+            Don't have an account? Register<a href="register.php"> here...</a>
         </div>
 
     </form>
 
 
 </body>
-</html>

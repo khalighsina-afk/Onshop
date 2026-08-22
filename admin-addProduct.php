@@ -1,7 +1,7 @@
 <?php
     include 'includes/myautoloader.includes.php';
     session_start();
-    if (!isset($_SESSION['user_uid']) || $_SESSION['user_uid'] != 'admin') {
+    if (!isset($_SESSION['user_uid']) != 'admin') {
         header("Location: login.php");
         exit;
     }

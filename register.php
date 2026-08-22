@@ -37,11 +37,19 @@
             include 'views/register-form.view.php';
             exit;
         }
-        $reg= User::register($username, $email, $password);
-        $_SESSION["username"] = $username;
-        $_SESSION["user_id"] = $reg;
-        header ("Location: products.php");
-        exit;
+
+        try{
+            $reg = User::register($username, $email, $password);
+            $_SESSION["username"] = $username;
+            $_SESSION["user_id"] = $reg;
+            header ("Location: products.php");
+            exit;
+        }catch (Exception $e){
+            $error = $e->getMessage();
+            include 'views/register-form.view.php';
+            exit;
+        }
+
     }
     include 'views/register-form.view.php';
 ?>

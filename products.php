@@ -1,7 +1,13 @@
+<?php include_once 'views/partials/header.view.php'; ?>
 <?php
     include 'includes/myautoloader.includes.php';
     session_start();
-
+    if(!isset($_SESSION['user_id'])): ?>
+    <a href="login.php" class="btn"></a><br>
+<?php else: ?>
+    <a href="user_panel.php" class="btn">To the user panel--></a>
+    <a href="cart.php" class="btn">to Cart--></a><br>
+<?php endif;
     $user_id = $_SESSION['user_id'] ?? NULL;
     $cartMap = [];
     if($user_id){
@@ -22,7 +28,8 @@
             exit;
         }
         $product_id = filter_var($_POST["product_id"], FILTER_VALIDATE_INT);
-        $quantity = filter_var($_POST["quantity"][$product_id], FILTER_VALIDATE_INT);
+        $quantity = filter_var($_POST["quantity"], FILTER_VALIDATE_INT);
+
         if ($product_id === false || $quantity === false || $quantity < 1) {
             echo "Invalid input.";
             exit;
@@ -41,4 +48,5 @@
         $quantity = $cartMap[$product->id] ?? 1;
         include 'views/product.view.php';
     }
+
     

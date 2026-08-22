@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <title>ADMIN PANEL</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <a href="admin-addProduct.php">Add a product-></a>
+<?php include 'views/partials/head.view.php'; ?>
+<?php include_once 'views/partials/header.view.php'; ?>
+<a href="admin-addProduct.php" class="btn">Add a Product:</a>
 <?php foreach($products as $product): ?>
     <div>
         <p>Name: <?php echo $product->name;?></p>
@@ -17,7 +14,7 @@
     <form action="admin.php" method="get">
         <input type="hidden" name="get_id" value="<?php echo $product->id; ?>">
         <button type="submit" name="update">update</button>
-        <p>***********************************************</p>
+        <div class="divider"></div>
     </form>
     </div>
 <?php endforeach; ?>

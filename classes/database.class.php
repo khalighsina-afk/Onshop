@@ -3,7 +3,7 @@ class Database {
     private static $pdo = null;
     private static $host = "127.0.0.1";
     private static $user = "root";
-    private static $pass = "";
+    private static $pass = "085231";
     private static $db="onshop_db";
     public static function getConnection() : PDO{
         if(self::$pdo === null){

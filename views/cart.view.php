@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>cart</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<?php include 'views/partials/head.view.php'; ?>
+<?php include'views/partials/header.view.php'; ?>
     <div>
         <?php if (empty($items)): ?>
             <p>Your cart is empty.</p>
-            <a href="products.php">Browse Products</a>
+            <a href="products.php" class="nav-link">Browse Products</a>
         <?php else: ?>
             <?php foreach ($items as $item): ?>
                 <form   action="cart.php"   method="post">
@@ -20,11 +16,11 @@
                     <button type="submit" name="update">Update</button>
                     <button type="submit" name="delete">Delete</button>
                 </form>
-                    <p>=======================</p>
+                    <div class="divider"></div>
             <?php endforeach; ?>
         <?php endif; ?>
         <p>Total: <?php echo $total;?> </p>
-        <a href="checkout.php">
+        <a href="checkout.php" class="btn">
             <button>proceed to checkout</button>
         </a>
     </div>

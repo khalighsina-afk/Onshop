@@ -164,4 +164,17 @@ class User {
         $stmt->execute([':id'=>$id]);
         return $stmt->rowCount() > 0;
     }
+    public static function change($id, $name, $password){
+    $pdo = Database::getConnection();
+    $sql = "UPDATE users 
+            SET user_name = :name, user_password = :password
+            WHERE user_id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':name' => $name,
+        ':password' => $password,
+        ':id' => $id
+    ]);
+    return $stmt->rowCount() > 0;
+    }
 }

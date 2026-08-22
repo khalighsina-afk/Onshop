@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>Update panel</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<?php include 'views/partials/head.view.php'; ?>
+<?php include 'views/partials/header.view.php'; ?>
 <form   action="update.php"   method="post">
     <div id="import">
         <h1>Editing Product</h1>
@@ -16,4 +13,3 @@
         <input type="submit" name="submit" value="save"> <br>
     </div>
 </form>
-</html>

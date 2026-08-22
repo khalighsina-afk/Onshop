@@ -10,7 +10,7 @@ class Cart{
 
     public static function showAllItems($user_id){
         $pdo = Database::getConnection();
-        $sql = "SELECT products.*, cart.quantity
+        $sql = "SELECT cart.user_id, products.*, cart.quantity
                 FROM cart 
                 JOIN products ON cart.product_id = products.product_id
                 WHERE cart.user_id = :user_id";

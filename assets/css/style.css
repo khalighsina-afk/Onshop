@@ -1,0 +1,153 @@
+header {
+    background: #f8f9fa;
+    padding: 15px 20px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* ===== ERROR MESSAGES ===== */
+.error {
+    color: #d9534f;
+    background: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+}
+
+/* ===== INPUTS ===== */
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* ===== SUBMIT BUTTONS (input type="submit") ===== */
+input[type="submit"] {
+    background: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+input[type="submit"]:hover {
+    background: #218838;
+}
+
+/* ===== ACTION BUTTONS (button type="submit") ===== */
+button {
+    background: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 2px;
+}
+button:hover {
+    background: #0056b3;
+}
+
+/* Danger button (Delete) */
+button.btn-danger {
+    background: #dc3545;
+}
+button.btn-danger:hover {
+    background: #c82333;
+}
+
+/* Success button (Add, Update) */
+button.btn-success {
+    background: #28a745;
+}
+button.btn-success:hover {
+    background: #218838;
+}
+
+/* ===== LINKS STYLED AS BUTTONS ===== */
+a.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 2px;
+    border: 1px solid #5a6268;
+}
+a.btn:hover {
+    background: #5a6268;
+    color: white;
+    text-decoration: none;
+}
+
+a.btn-primary {
+    background: #007bff;
+    border-color: #0069d9;
+}
+a.btn-primary:hover {
+    background: #0069d9;
+}
+
+a.btn-danger {
+    background: #dc3545;
+    border-color: #c82333;
+}
+a.btn-danger:hover {
+    background: #c82333;
+}
+
+a.btn-success {
+    background: #28a745;
+    border-color: #218838;
+}
+a.btn-success:hover {
+    background: #218838;
+}
+
+/* ===== NAVIGATION LINKS ===== */
+.nav-link {
+    color: #333;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.nav-link:hover {
+    background: #f0f0f0;
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* ===== PRODUCT CARDS ===== */
+.product-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.product-card p {
+    font-size: 16px;
+    color: #333;
+    margin: 6px 0;
+    padding: 4px 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.divider {
+    border-top: 2px solid #e0e0e0;
+    margin: 20px 0;
+    width: 100%;
+}

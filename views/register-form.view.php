@@ -1,5 +1,9 @@
-<html>
+<?php include 'views/partials/head.view.php'; ?>
+<?php include 'views/partials/header.view.php'; ?>
 <body>
+<?php if(!empty($error)):?>
+    <p class="error_message"><?php echo htmlspecialchars($error);?></p>
+<?php endif;?>
     <form action="register.php" method="post">
         <div id=login>
             <label>Username:</label>            <br>
@@ -11,11 +15,10 @@
             <label>email:</label>            <br>
             <input  type="email" name="email"> <br>
             <button type= "submit" name="register">Register</button><br>
-            <a href="login.php">Already have an account? Log-in here...</a>
+            Already have an account? Log-in<a href="login.php"> here...</a>
         </div>
 
     </form>
 
 
 </body>
-</html>

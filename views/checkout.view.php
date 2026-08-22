@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<header>
-    <title>Checkout</title>
-</header>
-<body>
-    <a href="cart.php">Back to cart...</a>
-    <h1>Order Summary</h1>
-
-<?php
-    foreach ($cartItems as $item):
+<?php include 'views/partials/head.view.php';
+foreach ($cartItems as $item):
         $subtotal = $item->product_price * $item->quantity;
 ?>
         <p>
-            $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$<br>
+            <div class="divider"></div>
             Product name= <?php echo $item->product_name?><br>
             Product price= <?php echo $item->product_price?><br>
             Quantity= <?php echo $item->quantity?><br>

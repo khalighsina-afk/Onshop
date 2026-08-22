@@ -1,9 +1,9 @@
 <?php
     include 'includes/myautoloader.includes.php';
     session_start();
-    if(!isset($_SESSION['user_uid']) || $_SESSION['user_uid'] != 'admin'){
+    if(!isset($_SESSION['user_uid'])!= 'admin'){
         echo "You are not authorized to access this page.";
-        echo "<a href='login.php'>Go back</a>";
+        echo "<a  href='login.php' class='btn' >Go back</a>";
         exit;
     }
     if(isset($_POST['delete'])){

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>ADMIN ADD PRODUCT</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<?php if (!empty($error)): ?>
-    <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
-<?php endif; ?>
+<?php include 'views/partials/head.view.php';
+      include 'views/partials/header.view.php';
+if(!empty($error)):?>
+    <p class="error_message"><?php echo htmlspecialchars($error);?></p>
+<?php endif;?>
 <?php if (!empty($success)): ?>
     <div class="alert alert-success"><?php echo htmlspecialchars($success); ?></div>
 <?php endif; ?>
@@ -18,4 +15,4 @@
     <input type="text" name="price"><br>
     <button type="submit" name="submit">Save</button>
 </form>
-<a href="admin.php">Back to All products-></a><br>
+<a href="admin.php" class="btn">Back to All products-></a><br>
