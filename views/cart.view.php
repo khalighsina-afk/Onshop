@@ -20,7 +20,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
         <p>Total: <?php echo $total;?> </p>
-        <a href="checkout.php" class="btn">
+        <a href="checkout.php">
             <button>proceed to checkout</button>
         </a>
     </div>

@@ -1,8 +1,9 @@
 <?php
     include 'includes/myautoloader.includes.php';
     session_start();
-    if (!isset($_SESSION['user_uid']) != 'admin') {
-        header("Location: login.php");
+    if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
+        echo "You are not authorized to access this page.";
+        echo "<a href='login.php' class='btn'>Go back</a>";
         exit;
     }
 
@@ -25,5 +26,5 @@
             }
         }
     }
-    include 'views/admin-addProduct-form.view.php';
+    include 'views/admin-addProduct.view.php';
 

@@ -23,4 +23,4 @@
             echo "Success!";
         }
     }
-    include "views/change_user.view.php";
+    include "views/change-user.view.php";

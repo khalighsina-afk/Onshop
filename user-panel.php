@@ -20,4 +20,4 @@
         exit;
     }
 
-include 'views/user_panel.view.php';
+include 'views/user-panel.view.php';

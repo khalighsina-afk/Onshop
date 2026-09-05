@@ -4,7 +4,7 @@
     <h1>User's panel</h1>
     <?php if ($user): ?>
         <h1>Welcome, <?php echo htmlspecialchars($user['user_name']); ?></h1>
-        <form action="user_panel.php" method="post"><button type="submit" name="logout_btn">logout</button></form>
+        <form action="user-panel.php" method="post"><button type="submit" name="logout_btn">logout</button></form>
     <?php endif; ?>
     <?php if (empty($orders)): ?>
         <p>You haven't placed any orders yet.</p>

@@ -40,7 +40,7 @@
             }
             Cart::clear($user_id);
             $pdo->commit();
-            header("Location: order_confirmation.php?order_id=" . $order_id);
+            header("Location: order-confirmation.php?order_id=" . $order_id);
             exit;
         }catch(Exception $e){
             $pdo->rollBack();

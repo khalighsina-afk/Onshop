@@ -27,4 +27,4 @@
     }
     $items = Order::getItems($order_id);
     
-    include 'views/order_confirmation.view.php';
+    include 'views/order-confirmation.view.php';

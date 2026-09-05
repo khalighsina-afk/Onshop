@@ -1,11 +1,12 @@
-<?php include_once 'views/partials/header.view.php'; ?>
 <?php
     include 'includes/myautoloader.includes.php';
     session_start();
+    include_once 'views/partials/header.view.php';
+
     if(!isset($_SESSION['user_id'])): ?>
-    <a href="login.php" class="btn"></a><br>
-<?php else: ?>
-    <a href="user_panel.php" class="btn">To the user panel--></a>
+        <a href="login.php" class="btn">Login</a><br>
+    <?php else: ?>
+    <a href="user-panel.php" class="btn">To the user panel--></a>
     <a href="cart.php" class="btn">to Cart--></a><br>
 <?php endif;
     $user_id = $_SESSION['user_id'] ?? NULL;

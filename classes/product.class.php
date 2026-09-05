@@ -44,28 +44,32 @@ class Product{
         return (int)$pdo->lastInsertId();
     }
 
-    public static function delete($id):bool
-    {
+    public static function delete($id): bool {
         $pdo = Database::getConnection();
         $pdo->beginTransaction();
 
-        try{
-            //delete from cart
-            $cartSql = "DELETE from cart
-                        WHERE product_id = :id";
+        try {
+            // Delete from order-items
+            $orderItemsSql = "DELETE FROM order_items WHERE product_id = :id";
+            $orderItemsStmt = $pdo->prepare($orderItemsSql);
+            $orderItemsStmt->execute([':id' => $id]);
+
+            //Delete from cart
+            $cartSql = "DELETE FROM cart WHERE product_id = :id";
             $cartStmt = $pdo->prepare($cartSql);
             $cartStmt->execute([':id' => $id]);
 
-            //delete product
+            // 3. Delete product
             $sql = "DELETE FROM products WHERE product_id = :id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([':id' => $id]);
+
             $pdo->commit();
             return $stmt->rowCount() > 0;
-        }catch(Exception $e){
+
+        } catch (Exception $e) {
             $pdo->rollBack();
-            echo $e->getMessage();
-            return $stmt->rowCount() >0 && $cartStmt->rowCount() >=0;
+            return false;
         }
     }
     public static function update($id, $name, $descr, $price){

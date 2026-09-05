@@ -13,27 +13,28 @@
         $password_repeat = $_POST["password_repeat"];
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
         //validate email
+        if (empty($username) || empty($password) || empty($email)) {
+            $error = "Please complete the form.";
+            include 'views/register-form.view.php';
+            exit;
+
+        }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = "Invalid email format.";
             include 'views/register-form.view.php';
             exit;
         }
         //Check empty
-        if (empty($username) || empty($password) || empty($email)) {
-            echo "Please complete the form.";
-            include 'views/register-form.view.php';
-            exit;
 
-        }
         //Check password match
         if ($password !== $password_repeat) {
-            echo "password do not match.";
+            $error = "password do not match.";
             include 'views/register-form.view.php';
             exit;
         }
         //Check password length
         if (strlen($password) < 8) {
-            echo "Password must be longer than 8 characters";
+            $error=  "Password must be longer than 8 characters";
             include 'views/register-form.view.php';
             exit;
         }
